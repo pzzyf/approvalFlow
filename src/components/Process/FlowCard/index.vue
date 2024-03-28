@@ -174,7 +174,7 @@ function NodeFactory(ctx, data, h) {
 
   if (hasBranch(data)) {
     // 如果节点是数组 一定为条件分支 添加分支样式包裹
-    // {data.childNode && NodeFactory.call(ctx, ctx, data.childNode, h)}
+    {data.childNode && NodeFactory.call(ctx, ctx, data.childNode, h)}
     branchNode = (
       <div class="branch-wrap">
         <div class="branch-box-wrap">
@@ -232,6 +232,7 @@ export default {
     eventLancher(event, ...args) {
       // args.slice(0,-1) vue 会注入MouseEvent到最后一个参数 去除事件对象
       let param = { event, args: args.slice(0, -1) };
+      console.log(param,)
       this.$emit("emits", param);
     }
   },

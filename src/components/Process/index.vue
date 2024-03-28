@@ -5,9 +5,10 @@ import { NodeUtils, getMockData } from "./FlowCard/util.js";
 
 export default {
   name: 'Process',
-  props:['tabName', 'conf'],
+  props:['conf'],
   data() {
     let data = getMockData()
+    console.log(data,'123123');
     if (typeof this.conf === 'object' && this.conf !== null) {
       Object.assign(data, this.conf)
     }
@@ -22,15 +23,6 @@ export default {
     };
   },
   methods: {
-    // 给父级组件提供的获取流程数据得方法
-    getData(){
-      this.verifyMode = true
-      if(NodeUtils.checkAllNode(this.data)) {
-        return Promise.resolve({formData: this.data})
-      }else{
-        return Promise.reject({target: this.tabName})
-      }
-    },
     /**
      * 接收所有FlowCard事件触发
      * @param { Object } data - 含有event(事件名称)/args(参数)两个属性
@@ -79,7 +71,6 @@ export default {
         );
         NodeUtils.setDefaultCondition(this.activeData, this.data)
       }
-      if(NodeUtils.isStartNode(this.activeData)) this.$emit('startNodeChange', this.data)
       this.onClosePanel();
       this.forceUpdate();
     },
